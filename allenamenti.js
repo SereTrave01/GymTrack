@@ -11,24 +11,24 @@ const workouts = {
 
     A: {
         name: "PHA Upper + Lower",
-        description: "Allenamento completo parte superiore e inferiore.",
+        description: "Scheda A",
         exercises: 7,
         duration: "60 min",
         color: "purple"
     },
 
     B: {
-        name: "Scheda B",
-        description: "Il tuo secondo allenamento della settimana.",
-        exercises: 7,
+        name: "Dorso + Bicipiti",
+        description: "Scheda B",
+        exercises: 6,
         duration: "60 min",
         color: "blue"
     },
 
     C: {
-        name: "Scheda C",
-        description: "Il tuo terzo allenamento della settimana.",
-        exercises: 7,
+        name: "Gambe",
+        description: "Scheda C",
+        exercises: 6,
         duration: "60 min",
         color: "pink"
     }
