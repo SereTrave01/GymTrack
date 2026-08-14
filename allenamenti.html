@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>GymTrack | Allenamenti</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+    <link rel="stylesheet" href="allenamenti.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            <div class="logo-icon">
+                <i class="fa-solid fa-dumbbell"></i>
+            </div>
+
+            <span>
+                GYM<span>TRACK</span>
+            </span>
+        </div>
+
+
+        <nav class="navigation">
+
+            <p class="nav-title">MENU</p>
+
+            <a href="index.html">
+                <i class="fa-solid fa-house"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="allenamenti.html" class="active">
+                <i class="fa-solid fa-dumbbell"></i>
+                <span>Allenamenti</span>
+            </a>
+
+            <a href="#">
+                <i class="fa-solid fa-chart-line"></i>
+                <span>Progressi</span>
+            </a>
+
+            <a href="#">
+                <i class="fa-solid fa-weight-scale"></i>
+                <span>Peso corporeo</span>
+            </a>
+
+            <p class="nav-title second">ALTRO</p>
+
+            <a href="#">
+                <i class="fa-regular fa-calendar"></i>
+                <span>Calendario</span>
+            </a>
+
+            <a href="#">
+                <i class="fa-solid fa-bullseye"></i>
+                <span>Obiettivi</span>
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-profile">
+
+            <div class="avatar">S</div>
+
+            <div class="profile-info">
+                <strong>Serena</strong>
+                <span>Il mio profilo</span>
+            </div>
+
+            <i class="fa-solid fa-ellipsis"></i>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="main">
+
+        <header class="top-header">
+
+            <div>
+
+                <span class="small-label">
+                    TRAINING
+                </span>
+
+                <h1>Allenamenti</h1>
+
+                <p>
+                    Scegli la seduta che vuoi svolgere.
+                </p>
+
+            </div>
+
+            <div class="header-actions">
+
+                <button class="icon-button">
+                    <i class="fa-regular fa-bell"></i>
+                </button>
+
+                <button class="icon-button">
+                    <i class="fa-regular fa-moon"></i>
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <!-- STATISTICHE -->
+
+        <section class="stats-row">
+
+            <div class="stat-card">
+
+                <div class="stat-icon purple">
+                    <i class="fa-solid fa-dumbbell"></i>
+                </div>
+
+                <div>
+                    <span>SCHEDE</span>
+                    <strong>3</strong>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon blue">
+                    <i class="fa-solid fa-calendar-check"></i>
+                </div>
+
+                <div>
+                    <span>ULTIMA SEDUTA</span>
+                    <strong id="lastWorkout">—</strong>
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon pink">
+                    <i class="fa-solid fa-fire"></i>
+                </div>
+
+                <div>
+                    <span>SEDUTE COMPLETATE</span>
+                    <strong id="completedWorkouts">0</strong>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- SCHEDE -->
+
+        <section class="workouts-section">
+
+            <div class="section-heading">
+
+                <div>
+                    <h2>Le tue schede</h2>
+
+                    <p>
+                        Seleziona una scheda per iniziare.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="workout-grid" id="workoutGrid"></div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<script src="allenamenti.js"></script>
+
+</body>
+</html>

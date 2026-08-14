@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>GymTrack | Allenamento</title>
+
+
+    <!-- FONT -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- ICONS -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+
+    <!-- PWA -->
+
+    <link
+        rel="manifest"
+        href="manifest.json"
+    >
+
+    <meta
+        name="theme-color"
+        content="#7c3aed"
+    >
+
+    <meta
+        name="apple-mobile-web-app-capable"
+        content="yes"
+    >
+
+    <meta
+        name="apple-mobile-web-app-status-bar-style"
+        content="default"
+    >
+
+    <meta
+        name="apple-mobile-web-app-title"
+        content="GymTrack"
+    >
+
+
+    <!-- CSS -->
+
+    <link
+        rel="stylesheet"
+        href="allenamento.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+    <!-- =====================================
+         SIDEBAR
+    ====================================== -->
+
+    <aside class="sidebar">
+
+
+        <div class="logo">
+
+            <div class="logo-icon">
+
+                <i class="fa-solid fa-dumbbell"></i>
+
+            </div>
+
+            <span>
+                GYM<span>TRACK</span>
+            </span>
+
+        </div>
+
+
+        <nav class="navigation">
+
+
+            <p class="nav-title">
+                MENU
+            </p>
+
+
+            <a href="index.html">
+
+                <i class="fa-solid fa-house"></i>
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+
+            <a
+                href="allenamenti.html"
+                class="active"
+            >
+
+                <i class="fa-solid fa-dumbbell"></i>
+
+                <span>
+                    Allenamenti
+                </span>
+
+            </a>
+
+
+            <a href="#">
+
+                <i class="fa-solid fa-chart-line"></i>
+
+                <span>
+                    Progressi
+                </span>
+
+            </a>
+
+
+            <a href="#">
+
+                <i class="fa-solid fa-weight-scale"></i>
+
+                <span>
+                    Peso corporeo
+                </span>
+
+            </a>
+
+
+            <p class="nav-title second">
+                ALTRO
+            </p>
+
+
+            <a href="#">
+
+                <i class="fa-regular fa-calendar"></i>
+
+                <span>
+                    Calendario
+                </span>
+
+            </a>
+
+
+            <a href="#">
+
+                <i class="fa-solid fa-bullseye"></i>
+
+                <span>
+                    Obiettivi
+                </span>
+
+            </a>
+
+
+        </nav>
+
+
+        <div class="sidebar-profile">
+
+
+            <div class="avatar">
+                S
+            </div>
+
+
+            <div class="profile-info">
+
+                <strong>
+                    Serena
+                </strong>
+
+                <span>
+                    Il mio profilo
+                </span>
+
+            </div>
+
+
+            <i class="fa-solid fa-ellipsis"></i>
+
+
+        </div>
+
+
+    </aside>
+
+
+
+    <!-- =====================================
+         MAIN
+    ====================================== -->
+
+    <main class="main">
+
+
+        <!-- HEADER -->
+
+        <header class="workout-header">
+
+
+            <a
+                href="allenamenti.html"
+                class="back-button"
+            >
+
+                <i class="fa-solid fa-arrow-left"></i>
+
+                <span>
+                    Allenamenti
+                </span>
+
+            </a>
+
+
+            <div class="header-actions">
+
+                <button
+                    class="icon-button"
+                    aria-label="Notifiche"
+                >
+
+                    <i class="fa-regular fa-bell"></i>
+
+                </button>
+
+
+                <button
+                    class="icon-button"
+                    aria-label="Modalità scura"
+                >
+
+                    <i class="fa-regular fa-moon"></i>
+
+                </button>
+
+            </div>
+
+
+        </header>
+
+
+
+        <!-- =====================================
+             TITOLO ALLENAMENTO
+        ====================================== -->
+
+        <section class="workout-title-section">
+
+
+            <div class="workout-title-left">
+
+
+                <div
+                    id="workoutLetter"
+                    class="large-workout-letter"
+                >
+                    A
+                </div>
+
+
+                <div>
+
+
+                    <span class="small-label">
+                        ALLENAMENTO
+                    </span>
+
+
+                    <h1 id="workoutTitle">
+                        PHA Upper + Lower
+                    </h1>
+
+
+                    <p id="workoutDescription">
+                        Allenamento completo
+                        parte superiore e inferiore.
+                    </p>
+
+
+                    <div class="workout-meta">
+
+
+                        <span>
+
+                            <i class="fa-solid fa-dumbbell"></i>
+
+                            <strong id="exerciseCount">
+                                7
+                            </strong>
+
+                            esercizi
+
+                        </span>
+
+
+                        <span>
+
+                            <i class="fa-regular fa-clock"></i>
+
+                            ~60 min
+
+                        </span>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+            <div class="workout-progress">
+
+
+                <div class="progress-circle">
+
+                    <span id="progressPercentage">
+                        0%
+                    </span>
+
+                </div>
+
+
+                <span>
+                    completato
+                </span>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =====================================
+             PROGRESS BAR
+        ====================================== -->
+
+        <div class="overall-progress">
+
+
+            <div class="overall-progress-top">
+
+                <span>
+                    PROGRESSO ALLENAMENTO
+                </span>
+
+
+                <strong id="progressText">
+                    0 / 7 esercizi
+                </strong>
+
+            </div>
+
+
+            <div class="progress-bar">
+
+                <div
+                    id="progressBar"
+                    class="progress-bar-fill"
+                ></div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =====================================
+             ESERCIZI
+        ====================================== -->
+
+        <section class="exercises-section">
+
+
+            <div class="section-heading">
+
+
+                <div>
+
+                    <span class="card-label">
+                        ESERCIZI
+                    </span>
+
+
+                    <h2>
+                        La tua scheda
+                    </h2>
+
+                </div>
+
+
+                <span id="exerciseTotal">
+                    7 esercizi
+                </span>
+
+
+            </div>
+
+
+            <!--
+                GLI ESERCIZI VENGONO
+                INSERITI DA allenamento.js
+            -->
+
+            <div
+                id="exerciseList"
+                class="exercise-list"
+            ></div>
+
+
+        </section>
+
+
+
+        <!-- =====================================
+             COMPLETA ALLENAMENTO
+        ====================================== -->
+
+        <section class="finish-section">
+
+
+            <button
+                id="finishWorkout"
+                class="finish-button"
+            >
+
+                <i class="fa-solid fa-check"></i>
+
+                Completa allenamento
+
+            </button>
+
+
+            <p>
+                I tuoi dati verranno salvati
+                automaticamente.
+            </p>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =====================================
+         MOBILE NAVIGATION
+    ====================================== -->
+
+    <nav class="mobile-nav">
+
+
+        <a
+            href="index.html"
+            class="mobile-nav-item"
+        >
+
+            <i class="fa-solid fa-house"></i>
+
+            <span>
+                Home
+            </span>
+
+        </a>
+
+
+        <a
+            href="allenamenti.html"
+            class="mobile-nav-item active"
+        >
+
+            <i class="fa-solid fa-dumbbell"></i>
+
+            <span>
+                Allenamenti
+            </span>
+
+        </a>
+
+
+        <a
+            href="#"
+            class="mobile-nav-item"
+        >
+
+            <i class="fa-solid fa-chart-line"></i>
+
+            <span>
+                Progressi
+            </span>
+
+        </a>
+
+
+        <a
+            href="#"
+            class="mobile-nav-item"
+        >
+
+            <i class="fa-solid fa-weight-scale"></i>
+
+            <span>
+                Peso
+            </span>
+
+        </a>
+
+
+    </nav>
+
+
+</div>
+
+
+
+<!-- =====================================
+     JAVASCRIPT
+====================================== -->
+
+<script src="allenamento.js"></script>
+
+
+<!-- SERVICE WORKER -->
+
+<script>
+
+if ("serviceWorker" in navigator) {
+
+    window.addEventListener("load", () => {
+
+        navigator.serviceWorker
+            .register("./service-worker.js")
+            .then(() => {
+
+                console.log(
+                    "GymTrack: Service Worker attivo"
+                );
+
+            })
+            .catch(error => {
+
+                console.error(
+                    "GymTrack: errore Service Worker",
+                    error
+                );
+
+            });
+
+    });
+
+}
+
+</script>
+
+
+</body>
+
+</html>

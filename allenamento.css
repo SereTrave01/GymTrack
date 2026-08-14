@@ -1,0 +1,1398 @@
+/* =========================================================
+   GYMTRACK - ALLENAMENTO
+   ========================================================= */
+
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    font-family: "Inter", sans-serif;
+    background: #f7f7fa;
+    color: #18181b;
+}
+
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+button,
+input {
+    font-family: inherit;
+}
+
+
+/* =========================================================
+   APP
+   ========================================================= */
+
+.app {
+    display: flex;
+    min-height: 100vh;
+}
+
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+
+.sidebar {
+    width: 250px;
+    min-height: 100vh;
+
+    background: #ffffff;
+
+    border-right: 1px solid #ececf1;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 28px 18px;
+
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+}
+
+
+/* LOGO */
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+
+    padding: 0 10px 35px;
+
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+
+.logo > span span {
+    color: #7c3aed;
+}
+
+
+.logo-icon {
+    width: 36px;
+    height: 36px;
+
+    border-radius: 11px;
+
+    background: #7c3aed;
+
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 16px;
+}
+
+
+/* NAVIGATION */
+
+.navigation {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+
+.nav-title {
+    font-size: 10px;
+    font-weight: 700;
+
+    color: #a1a1aa;
+
+    letter-spacing: 1.2px;
+
+    padding: 0 12px 10px;
+
+    margin-top: 4px;
+}
+
+
+.nav-title.second {
+    margin-top: 28px;
+}
+
+
+.navigation a {
+    height: 46px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 13px;
+
+    padding: 0 13px;
+
+    border-radius: 11px;
+
+    color: #71717a;
+
+    font-size: 13px;
+    font-weight: 500;
+
+    transition: 0.2s ease;
+}
+
+
+.navigation a i {
+    width: 19px;
+    text-align: center;
+
+    font-size: 15px;
+}
+
+
+.navigation a:hover {
+    background: #f5f3ff;
+    color: #7c3aed;
+}
+
+
+.navigation a.active {
+    background: #f1edff;
+    color: #7c3aed;
+
+    font-weight: 600;
+}
+
+
+/* PROFILE */
+
+.sidebar-profile {
+    margin-top: auto;
+
+    padding: 15px 8px 0;
+
+    border-top: 1px solid #eeeeF2;
+
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+}
+
+
+.avatar {
+    width: 37px;
+    height: 37px;
+
+    border-radius: 50%;
+
+    background: #ede9fe;
+
+    color: #7c3aed;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-weight: 700;
+}
+
+
+.profile-info {
+    display: flex;
+    flex-direction: column;
+
+    flex: 1;
+}
+
+
+.profile-info strong {
+    font-size: 12px;
+}
+
+
+.profile-info span {
+    font-size: 10px;
+
+    color: #a1a1aa;
+
+    margin-top: 2px;
+}
+
+
+.sidebar-profile > i {
+    color: #a1a1aa;
+}
+
+
+/* =========================================================
+   MAIN
+   ========================================================= */
+
+.main {
+    margin-left: 250px;
+
+    width: calc(100% - 250px);
+
+    padding: 34px 48px 70px;
+
+    max-width: 1500px;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.workout-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 30px;
+}
+
+
+.back-button {
+    display: inline-flex;
+    align-items: center;
+
+    gap: 9px;
+
+    color: #71717a;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    transition: 0.2s ease;
+}
+
+
+.back-button:hover {
+    color: #7c3aed;
+}
+
+
+.back-button i {
+    font-size: 13px;
+}
+
+
+/* HEADER ACTIONS */
+
+.header-actions {
+    display: flex;
+    gap: 9px;
+}
+
+
+.icon-button {
+    width: 40px;
+    height: 40px;
+
+    border: 1px solid #e7e7eb;
+
+    background: white;
+
+    border-radius: 11px;
+
+    color: #71717a;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: 0.2s ease;
+}
+
+
+.icon-button:hover {
+    border-color: #d8cffd;
+
+    color: #7c3aed;
+
+    background: #faf9ff;
+}
+
+
+/* =========================================================
+   WORKOUT TITLE
+   ========================================================= */
+
+.workout-title-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background: white;
+
+    border: 1px solid #ececf1;
+
+    border-radius: 20px;
+
+    padding: 28px 30px;
+
+    margin-bottom: 20px;
+
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.025);
+}
+
+
+.workout-title-left {
+    display: flex;
+    align-items: center;
+
+    gap: 20px;
+}
+
+
+.large-workout-letter {
+    width: 68px;
+    height: 68px;
+
+    border-radius: 18px;
+
+    background: #f1edff;
+
+    color: #7c3aed;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 27px;
+    font-weight: 700;
+
+    flex-shrink: 0;
+}
+
+
+.small-label {
+    display: block;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    color: #a1a1aa;
+
+    letter-spacing: 1.2px;
+
+    margin-bottom: 7px;
+}
+
+
+.workout-title-section h1 {
+    font-size: 26px;
+
+    letter-spacing: -0.7px;
+
+    margin-bottom: 5px;
+}
+
+
+.workout-title-section p {
+    color: #71717a;
+
+    font-size: 13px;
+}
+
+
+.workout-meta {
+    display: flex;
+
+    gap: 18px;
+
+    margin-top: 15px;
+}
+
+
+.workout-meta span {
+    display: flex;
+    align-items: center;
+
+    gap: 6px;
+
+    font-size: 11px;
+
+    color: #71717a;
+}
+
+
+.workout-meta i {
+    color: #8b5cf6;
+}
+
+
+/* =========================================================
+   WORKOUT PROGRESS
+   ========================================================= */
+
+.workout-progress {
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 6px;
+
+    color: #a1a1aa;
+
+    font-size: 10px;
+
+    font-weight: 600;
+}
+
+
+.progress-circle {
+    width: 64px;
+    height: 64px;
+
+    border-radius: 50%;
+
+    background:
+        conic-gradient(
+            #7c3aed 0deg,
+            #eeeafd 0deg
+        );
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+}
+
+
+.progress-circle::before {
+    content: "";
+
+    position: absolute;
+
+    width: 52px;
+    height: 52px;
+
+    background: white;
+
+    border-radius: 50%;
+}
+
+
+.progress-circle span {
+    position: relative;
+
+    z-index: 2;
+
+    color: #7c3aed;
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   OVERALL PROGRESS
+   ========================================================= */
+
+.overall-progress {
+    background: white;
+
+    border: 1px solid #ececf1;
+
+    border-radius: 15px;
+
+    padding: 17px 20px;
+
+    margin-bottom: 28px;
+}
+
+
+.overall-progress-top {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 11px;
+}
+
+
+.overall-progress-top span {
+    color: #a1a1aa;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+}
+
+
+.overall-progress-top strong {
+    font-size: 11px;
+
+    color: #52525b;
+}
+
+
+.progress-bar {
+    height: 7px;
+
+    background: #f0eef7;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+}
+
+
+.progress-bar-fill {
+    height: 100%;
+
+    width: 0%;
+
+    background: #7c3aed;
+
+    border-radius: inherit;
+
+    transition: width 0.3s ease;
+}
+
+
+/* =========================================================
+   SECTION HEADING
+   ========================================================= */
+
+.section-heading {
+    display: flex;
+
+    align-items: flex-end;
+    justify-content: space-between;
+
+    margin-bottom: 15px;
+}
+
+
+.card-label {
+    display: block;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    color: #a1a1aa;
+
+    letter-spacing: 1px;
+
+    margin-bottom: 6px;
+}
+
+
+.section-heading h2 {
+    font-size: 19px;
+
+    letter-spacing: -0.4px;
+}
+
+
+.section-heading > span {
+    font-size: 11px;
+
+    color: #a1a1aa;
+}
+
+
+/* =========================================================
+   EXERCISE LIST
+   ========================================================= */
+
+.exercise-list {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+}
+
+
+/* =========================================================
+   EXERCISE CARD
+   ========================================================= */
+
+.exercise-card {
+    background: white;
+
+    border: 1px solid #ececf1;
+
+    border-radius: 17px;
+
+    padding: 20px;
+
+    transition: 0.2s ease;
+}
+
+
+.exercise-card:hover {
+    border-color: #ddd6fe;
+
+    box-shadow: 0 6px 20px rgba(124, 58, 237, 0.05);
+}
+
+
+.exercise-card.completed {
+    border-color: #ddd6fe;
+
+    background: #fcfbff;
+}
+
+
+/* TOP */
+
+.exercise-top {
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+}
+
+
+.exercise-number {
+    width: 37px;
+    height: 37px;
+
+    flex-shrink: 0;
+
+    border-radius: 11px;
+
+    background: #f4f1ff;
+
+    color: #7c3aed;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 12px;
+
+    font-weight: 700;
+}
+
+
+.exercise-title {
+    flex: 1;
+}
+
+
+.exercise-muscle {
+    display: block;
+
+    color: #a1a1aa;
+
+    text-transform: uppercase;
+
+    font-size: 8px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.8px;
+
+    margin-bottom: 3px;
+}
+
+
+.exercise-title h3 {
+    font-size: 14px;
+
+    font-weight: 700;
+
+    color: #27272a;
+}
+
+
+/* COMPLETE */
+
+.complete-button {
+    width: 34px;
+    height: 34px;
+
+    border-radius: 10px;
+
+    border: 1px solid #e4e4e7;
+
+    background: white;
+
+    color: #d4d4d8;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: 0.2s ease;
+}
+
+
+.complete-button:hover {
+    color: #7c3aed;
+
+    border-color: #c4b5fd;
+}
+
+
+.exercise-card.completed .complete-button {
+    background: #7c3aed;
+
+    color: white;
+
+    border-color: #7c3aed;
+}
+
+
+/* =========================================================
+   EXERCISE INFO
+   ========================================================= */
+
+.exercise-info {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 10px;
+
+    margin-top: 18px;
+
+    padding-top: 17px;
+
+    border-top: 1px solid #f0f0f2;
+}
+
+
+.exercise-info div {
+    background: #fafafa;
+
+    border-radius: 10px;
+
+    padding: 10px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 4px;
+}
+
+
+.exercise-info span {
+    font-size: 8px;
+
+    font-weight: 700;
+
+    color: #a1a1aa;
+
+    letter-spacing: 0.5px;
+}
+
+
+.exercise-info strong {
+    font-size: 12px;
+
+    color: #3f3f46;
+}
+
+
+/* =========================================================
+   PESO
+   ========================================================= */
+
+.weight-section {
+    margin-top: 18px;
+}
+
+
+.weight-section label,
+.notes-section label {
+    display: block;
+
+    font-size: 9px;
+
+    color: #71717a;
+
+    font-weight: 700;
+
+    letter-spacing: 0.7px;
+
+    margin-bottom: 8px;
+}
+
+
+.weight-input-wrapper {
+    position: relative;
+
+    width: 170px;
+}
+
+
+.weight-input {
+    width: 100%;
+
+    height: 45px;
+
+    border: 1px solid #e4e4e7;
+
+    border-radius: 11px;
+
+    padding: 0 42px 0 13px;
+
+    outline: none;
+
+    background: white;
+
+    color: #27272a;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    transition: 0.2s ease;
+}
+
+
+.weight-input:focus {
+    border-color: #a78bfa;
+
+    box-shadow:
+        0 0 0 3px rgba(124, 58, 237, 0.08);
+}
+
+
+.weight-input-wrapper > span {
+    position: absolute;
+
+    right: 13px;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #a1a1aa;
+
+    font-size: 11px;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   NOTE
+   ========================================================= */
+
+.notes-section {
+    margin-top: 14px;
+}
+
+
+.notes-input {
+    width: 100%;
+
+    height: 42px;
+
+    border: 1px solid #e4e4e7;
+
+    border-radius: 11px;
+
+    padding: 0 13px;
+
+    outline: none;
+
+    font-size: 11px;
+
+    color: #3f3f46;
+
+    background: white;
+
+    transition: 0.2s ease;
+}
+
+
+.notes-input::placeholder {
+    color: #c4c4c9;
+}
+
+
+.notes-input:focus {
+    border-color: #a78bfa;
+
+    box-shadow:
+        0 0 0 3px rgba(124, 58, 237, 0.08);
+}
+
+
+/* =========================================================
+   FINISH
+   ========================================================= */
+
+.finish-section {
+    text-align: center;
+
+    margin-top: 30px;
+
+    padding-bottom: 20px;
+}
+
+
+.finish-button {
+    border: none;
+
+    background: #7c3aed;
+
+    color: white;
+
+    height: 48px;
+
+    padding: 0 25px;
+
+    border-radius: 12px;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    box-shadow:
+        0 7px 18px rgba(124, 58, 237, 0.18);
+
+    transition: 0.2s ease;
+}
+
+
+.finish-button:hover {
+    background: #6d28d9;
+
+    transform: translateY(-1px);
+}
+
+
+.finish-section p {
+    margin-top: 9px;
+
+    font-size: 10px;
+
+    color: #a1a1aa;
+}
+
+
+/* =========================================================
+   MOBILE NAVIGATION
+   ========================================================= */
+
+.mobile-nav {
+    display: none;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1000px) {
+
+    .sidebar {
+        width: 220px;
+    }
+
+
+    .main {
+        margin-left: 220px;
+
+        width: calc(100% - 220px);
+
+        padding: 28px 30px 60px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+
+    body {
+        padding-bottom: 72px;
+    }
+
+
+    /* SIDEBAR */
+
+    .sidebar {
+        display: none;
+    }
+
+
+    /* MAIN */
+
+    .main {
+        margin-left: 0;
+
+        width: 100%;
+
+        padding: 20px 15px 30px;
+    }
+
+
+    /* HEADER */
+
+    .workout-header {
+        margin-bottom: 20px;
+    }
+
+
+    .back-button {
+        font-size: 12px;
+    }
+
+
+    .header-actions {
+        gap: 6px;
+    }
+
+
+    .icon-button {
+        width: 37px;
+        height: 37px;
+
+        border-radius: 10px;
+    }
+
+
+    /* TITLE */
+
+    .workout-title-section {
+        padding: 20px;
+
+        border-radius: 17px;
+
+        align-items: flex-start;
+    }
+
+
+    .workout-title-left {
+        gap: 13px;
+
+        min-width: 0;
+    }
+
+
+    .large-workout-letter {
+        width: 52px;
+        height: 52px;
+
+        border-radius: 14px;
+
+        font-size: 21px;
+    }
+
+
+    .workout-title-section h1 {
+        font-size: 20px;
+
+        line-height: 1.2;
+
+        margin-bottom: 5px;
+    }
+
+
+    .workout-title-section p {
+        font-size: 11px;
+
+        line-height: 1.4;
+    }
+
+
+    .workout-meta {
+        gap: 11px;
+
+        margin-top: 11px;
+
+        flex-wrap: wrap;
+    }
+
+
+    .workout-meta span {
+        font-size: 9px;
+    }
+
+
+    .workout-progress {
+        display: none;
+    }
+
+
+    /* PROGRESS */
+
+    .overall-progress {
+        padding: 15px;
+
+        border-radius: 13px;
+
+        margin-bottom: 22px;
+    }
+
+
+    /* SECTION */
+
+    .section-heading {
+        margin-bottom: 12px;
+    }
+
+
+    .section-heading h2 {
+        font-size: 17px;
+    }
+
+
+    .section-heading > span {
+        font-size: 10px;
+    }
+
+
+    /* EXERCISE */
+
+    .exercise-card {
+        padding: 16px;
+
+        border-radius: 15px;
+    }
+
+
+    .exercise-top {
+        gap: 10px;
+    }
+
+
+    .exercise-number {
+        width: 34px;
+        height: 34px;
+
+        border-radius: 10px;
+    }
+
+
+    .exercise-title h3 {
+        font-size: 13px;
+    }
+
+
+    .exercise-muscle {
+        font-size: 7px;
+    }
+
+
+    .complete-button {
+        width: 33px;
+        height: 33px;
+    }
+
+
+    /* INFO */
+
+    .exercise-info {
+        gap: 7px;
+
+        margin-top: 15px;
+
+        padding-top: 14px;
+    }
+
+
+    .exercise-info div {
+        padding: 8px;
+
+        border-radius: 9px;
+    }
+
+
+    .exercise-info span {
+        font-size: 7px;
+    }
+
+
+    .exercise-info strong {
+        font-size: 11px;
+    }
+
+
+    /* WEIGHT */
+
+    .weight-section {
+        margin-top: 15px;
+    }
+
+
+    .weight-input-wrapper {
+        width: 100%;
+    }
+
+
+    .weight-input {
+        height: 47px;
+
+        font-size: 15px;
+    }
+
+
+    /* NOTES */
+
+    .notes-input {
+        height: 44px;
+    }
+
+
+    /* FINISH */
+
+    .finish-section {
+        margin-top: 24px;
+    }
+
+
+    .finish-button {
+        width: 100%;
+
+        height: 49px;
+    }
+
+
+    /* MOBILE NAV */
+
+    .mobile-nav {
+        position: fixed;
+
+        display: flex;
+
+        left: 0;
+        right: 0;
+        bottom: 0;
+
+        height: 68px;
+
+        background: rgba(255, 255, 255, 0.96);
+
+        backdrop-filter: blur(12px);
+
+        border-top: 1px solid #e9e9ed;
+
+        z-index: 1000;
+
+        padding:
+            6px
+            8px
+            env(safe-area-inset-bottom);
+    }
+
+
+    .mobile-nav-item {
+        flex: 1;
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: center;
+
+        justify-content: center;
+
+        gap: 4px;
+
+        color: #a1a1aa;
+
+        font-size: 9px;
+
+        font-weight: 600;
+
+        border-radius: 10px;
+    }
+
+
+    .mobile-nav-item i {
+        font-size: 16px;
+    }
+
+
+    .mobile-nav-item.active {
+        color: #7c3aed;
+
+        background: #f5f2ff;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 380px) {
+
+    .main {
+        padding-left: 11px;
+        padding-right: 11px;
+    }
+
+
+    .workout-title-section {
+        padding: 16px;
+    }
+
+
+    .large-workout-letter {
+        width: 46px;
+        height: 46px;
+
+        font-size: 18px;
+    }
+
+
+    .workout-title-section h1 {
+        font-size: 18px;
+    }
+
+
+    .exercise-card {
+        padding: 14px;
+    }
+
+
+    .exercise-info div {
+        padding: 7px 5px;
+    }
+
+}
