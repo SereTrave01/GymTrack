@@ -1,6 +1,15 @@
 /* =========================================================
    GYMTRACK
    allenamento.js
+
+   FUNZIONE PRINCIPALE:
+   Tracking dei carichi utilizzati negli esercizi.
+
+   - Salvataggio ultimo carico
+   - Salvataggio note
+   - Storico degli allenamenti
+   - Progressione dei carichi
+   - Nessun sistema di "esercizio completato"
    ========================================================= */
 
 
@@ -11,8 +20,12 @@
 const workouts = {
 
     A: {
+
         name: "PHA Upper + Lower",
-        description: "Allenamento completo parte superiore e inferiore.",
+
+        description:
+            "Allenamento completo parte superiore e inferiore.",
+
         duration: "60 min",
 
         exercises: [
@@ -74,12 +87,17 @@ const workouts = {
             }
 
         ]
+
     },
 
 
     B: {
+
         name: "Dorso + Bicipiti",
-        description: "Riscaldamento: 10 minuti di tapis roulant, circonduzioni e mobilità. Conclusione: 5 minuti di tapis roulant con pendenza 12 e velocità 3.5.",
+
+        description:
+            "Riscaldamento: 10 minuti di tapis roulant, circonduzioni e mobilità. Conclusione: 5 minuti di tapis roulant con pendenza 12 e velocità 3.5.",
+
         duration: "60 min",
 
         exercises: [
@@ -130,15 +148,20 @@ const workouts = {
                 sets: 3,
                 reps: "MAX",
                 rest: "45 sec"
-            },
+            }
 
         ]
+
     },
 
 
     C: {
+
         name: "Gambe",
-        description: "Riscaldamento: 10 minuti di cyclette, circonduzioni e mobilità. Tra Pendulum Squat e Mezzi Stacchi: 3 minuti di tapis roulant con pendenza 12 e velocità 3.5. Conclusione: 5 minuti di cyclette orizzontale e 3-5 minuti di squadretta.",
+
+        description:
+            "Riscaldamento: 10 minuti di cyclette, circonduzioni e mobilità. Tra Pendulum Squat e Mezzi Stacchi: 3 minuti di tapis roulant con pendenza 12 e velocità 3.5. Conclusione: 5 minuti di cyclette orizzontale e 3-5 minuti di squadretta.",
+
         duration: "60 min",
 
         exercises: [
@@ -189,16 +212,17 @@ const workouts = {
                 sets: 3,
                 reps: "10-15",
                 rest: "105 sec"
-            },
+            }
 
         ]
+
     }
 
 };
 
 
 /* =========================================================
-   RECUPERO DELLA SCHEDA DALL'URL
+   RECUPERO SCHEDA DALL'URL
    ========================================================= */
 
 const params = new URLSearchParams(window.location.search);
@@ -212,7 +236,6 @@ if (!workoutId || !workouts[workoutId]) {
 }
 
 const workout = workouts[workoutId];
-
 
 
 /* =========================================================
@@ -250,23 +273,85 @@ const finishWorkout =
     document.getElementById("finishWorkout");
 
 
-
 /* =========================================================
-   STORAGE KEY
+   STORAGE
+   =========================================================
+
+   LAST WEIGHTS
+
+   Contiene solamente l'ultimo carico utilizzato
+   per ogni esercizio.
+
+   Esempio:
+
+   {
+       "0": {
+           weight: "80",
+           notes: "Facile"
+       }
+   }
+
+   HISTORY
+
+   Contiene tutti gli allenamenti salvati.
+
    ========================================================= */
 
-const storageKey =
-    `gymtrack_workout_${workoutId}`;
+const latestStorageKey =
+    `gymtrack_latest_${workoutId}`;
 
+const historyStorageKey =
+    "gymtrack_history";
 
 
 /* =========================================================
-   CARICA DATI SALVATI
+   CARICA ULTIMI DATI
    ========================================================= */
 
-let savedData =
-    JSON.parse(localStorage.getItem(storageKey)) || {};
+let latestData = {};
 
+try {
+
+    latestData =
+        JSON.parse(
+            localStorage.getItem(latestStorageKey)
+        ) || {};
+
+} catch (error) {
+
+    console.error(
+        "Errore nel caricamento dei dati:",
+        error
+    );
+
+    latestData = {};
+
+}
+
+
+/* =========================================================
+   CARICA STORICO
+   ========================================================= */
+
+let workoutHistory = [];
+
+try {
+
+    workoutHistory =
+        JSON.parse(
+            localStorage.getItem(historyStorageKey)
+        ) || [];
+
+} catch (error) {
+
+    console.error(
+        "Errore nel caricamento dello storico:",
+        error
+    );
+
+    workoutHistory = [];
+
+}
 
 
 /* =========================================================
@@ -275,23 +360,46 @@ let savedData =
 
 function loadWorkoutInfo() {
 
-    workoutLetter.textContent =
-        workoutId;
+    if (workoutLetter) {
 
-    workoutTitle.textContent =
-        workout.name;
+        workoutLetter.textContent =
+            workoutId;
 
-    workoutDescription.textContent =
-        workout.description;
+    }
 
-    exerciseCount.textContent =
-        workout.exercises.length;
 
-    exerciseTotal.textContent =
-        `${workout.exercises.length} esercizi`;
+    if (workoutTitle) {
+
+        workoutTitle.textContent =
+            workout.name;
+
+    }
+
+
+    if (workoutDescription) {
+
+        workoutDescription.textContent =
+            workout.description;
+
+    }
+
+
+    if (exerciseCount) {
+
+        exerciseCount.textContent =
+            workout.exercises.length;
+
+    }
+
+
+    if (exerciseTotal) {
+
+        exerciseTotal.textContent =
+            `${workout.exercises.length} esercizi`;
+
+    }
 
 }
-
 
 
 /* =========================================================
@@ -300,180 +408,247 @@ function loadWorkoutInfo() {
 
 function renderExercises() {
 
+    if (!exerciseList) {
+
+        console.error(
+            "Elemento #exerciseList non trovato."
+        );
+
+        return;
+
+    }
+
+
     exerciseList.innerHTML = "";
 
 
-    workout.exercises.forEach((exercise, index) => {
+    workout.exercises.forEach(
+        (exercise, index) => {
 
-        const exerciseNumber =
-            index + 1;
-
-
-        const data =
-            savedData[index] || {};
+            const data =
+                latestData[index] || {};
 
 
-        const isCompleted =
-            data.completed || false;
+            const hasWeight =
+                data.weight !== undefined &&
+                data.weight !== null &&
+                data.weight !== "";
 
 
-        const card =
-            document.createElement("article");
+            const card =
+                document.createElement("article");
 
 
-        card.className =
-            `exercise-card ${isCompleted ? "completed" : ""}`;
+            card.className =
+                `exercise-card ${hasWeight ? "has-weight" : ""}`;
 
 
-        card.innerHTML = `
-
-            <div class="exercise-top">
-
-                <div class="exercise-number">
-
-                    ${exerciseNumber}
-
-                </div>
+            card.dataset.index =
+                index;
 
 
-                <div class="exercise-title">
+            card.innerHTML = `
 
-                    <span class="exercise-muscle">
+                <!-- =====================================
+                     TESTATA ESERCIZIO
+                ====================================== -->
 
-                        ${exercise.muscle}
+                <div class="exercise-top">
 
-                    </span>
+                    <div class="exercise-number">
 
+                        ${index + 1}
 
-                    <h3>
-
-                        ${exercise.name}
-
-                    </h3>
-
-                </div>
+                    </div>
 
 
-                <button
-                    class="complete-button"
-                    data-index="${index}"
-                    aria-label="Completa esercizio"
-                >
+                    <div class="exercise-title">
 
-                    <i class="fa-solid fa-check"></i>
+                        <span class="exercise-muscle">
 
-                </button>
+                            ${escapeHTML(exercise.muscle)}
 
-            </div>
+                        </span>
 
 
-            <div class="exercise-info">
+                        <h3>
 
+                            ${escapeHTML(exercise.name)}
 
-                <div>
+                        </h3>
 
-                    <span>
-                        SERIE
-                    </span>
-
-                    <strong>
-                        ${exercise.sets}
-                    </strong>
+                    </div>
 
                 </div>
 
 
-                <div>
+                <!-- =====================================
+                     INFORMAZIONI ESERCIZIO
+                ====================================== -->
 
-                    <span>
-                        RIPETIZIONI
-                    </span>
+                <div class="exercise-info">
 
-                    <strong>
-                        ${exercise.reps}
-                    </strong>
+
+                    <div>
+
+                        <span>
+                            SERIE
+                        </span>
+
+                        <strong>
+                            ${escapeHTML(String(exercise.sets))}
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            RIPETIZIONI
+                        </span>
+
+                        <strong>
+                            ${escapeHTML(exercise.reps)}
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            RECUPERO
+                        </span>
+
+                        <strong>
+                            ${escapeHTML(exercise.rest)}
+                        </strong>
+
+                    </div>
+
 
                 </div>
 
 
-                <div>
+                <!-- =====================================
+                     CARICO
+                ====================================== -->
 
-                    <span>
-                        RECUPERO
-                    </span>
+                <div class="weight-section">
 
-                    <strong>
-                        ${exercise.rest}
-                    </strong>
+                    <label>
+
+                        CARICO UTILIZZATO
+
+                    </label>
+
+
+                    <div class="weight-input-wrapper">
+
+
+                        <input
+                            type="number"
+                            class="weight-input"
+                            data-index="${index}"
+                            value="${escapeAttribute(data.weight || "")}"
+                            placeholder="0"
+                            step="0.5"
+                            min="0"
+                            inputmode="decimal"
+                            autocomplete="off"
+                        >
+
+
+                        <span>
+                            kg
+                        </span>
+
+
+                    </div>
+
+
+                    ${
+                        hasWeight
+                            ? `
+                                <small class="last-weight">
+
+                                    Ultimo carico:
+                                    <strong>
+                                        ${escapeHTML(String(data.weight))} kg
+                                    </strong>
+
+                                </small>
+                              `
+                            : `
+                                <small class="last-weight">
+
+                                    Nessun carico registrato
+
+                                </small>
+                              `
+                    }
+
 
                 </div>
 
 
-            </div>
+                <!-- =====================================
+                     NOTE
+                ====================================== -->
 
+                <div class="notes-section">
 
-            <div class="weight-section">
+                    <label>
 
+                        NOTE
 
-                <label>
-
-                    CARICO UTILIZZATO
-
-                </label>
-
-
-                <div class="weight-input-wrapper">
+                    </label>
 
 
                     <input
-                        type="number"
-                        class="weight-input"
+                        type="text"
+                        class="notes-input"
                         data-index="${index}"
-                        value="${data.weight || ""}"
-                        placeholder="0"
-                        step="0.5"
-                        min="0"
+                        value="${escapeAttribute(data.notes || "")}"
+                        placeholder="Aggiungi una nota..."
+                        autocomplete="off"
                     >
-
-
-                    <span>
-                        kg
-                    </span>
-
 
                 </div>
 
 
-            </div>
+                <!-- =====================================
+                     STATO
+                ====================================== -->
+
+                <div class="exercise-status">
+
+                    ${
+                        hasWeight
+                            ? `
+                                <span class="status-recorded">
+                                    <i class="fa-solid fa-check"></i>
+                                    Carico registrato
+                                </span>
+                              `
+                            : `
+                                <span class="status-empty">
+                                    <i class="fa-solid fa-circle"></i>
+                                    Inserisci il carico
+                                </span>
+                              `
+                    }
+
+                </div>
+
+            `;
 
 
-            <div class="notes-section">
+            exerciseList.appendChild(card);
 
-
-                <label>
-
-                    NOTE
-
-                </label>
-
-
-                <input
-                    type="text"
-                    class="notes-input"
-                    data-index="${index}"
-                    value="${data.notes || ""}"
-                    placeholder="Aggiungi una nota..."
-                >
-
-
-            </div>
-
-        `;
-
-
-        exerciseList.appendChild(card);
-
-    });
+        }
+    );
 
 
     addExerciseListeners();
@@ -483,6 +658,38 @@ function renderExercises() {
 }
 
 
+/* =========================================================
+   SICUREZZA HTML
+   =========================================================
+
+   Evita che testo inserito nei dati venga interpretato
+   come HTML.
+
+   ========================================================= */
+
+function escapeHTML(value) {
+
+    return String(value)
+
+        .replace(/&/g, "&amp;")
+
+        .replace(/</g, "&lt;")
+
+        .replace(/>/g, "&gt;")
+
+        .replace(/"/g, "&quot;")
+
+        .replace(/'/g, "&#039;");
+
+}
+
+
+function escapeAttribute(value) {
+
+    return escapeHTML(value);
+
+}
+
 
 /* =========================================================
    EVENTI DEGLI ESERCIZI
@@ -491,132 +698,254 @@ function renderExercises() {
 function addExerciseListeners() {
 
 
-    /* -----------------------------
-       PULSANTE COMPLETATO
-    ------------------------------ */
-
-    const completeButtons =
-        document.querySelectorAll(".complete-button");
-
-
-    completeButtons.forEach(button => {
-
-        button.addEventListener("click", () => {
-
-            const index =
-                Number(button.dataset.index);
-
-
-            if (!savedData[index]) {
-
-                savedData[index] = {};
-
-            }
-
-
-            savedData[index].completed =
-                !savedData[index].completed;
-
-
-            saveData();
-
-            renderExercises();
-
-        });
-
-    });
-
-
-
-    /* -----------------------------
+    /* =============================================
        INPUT PESO
-    ------------------------------ */
+    ============================================== */
 
     const weightInputs =
-        document.querySelectorAll(".weight-input");
+        document.querySelectorAll(
+            ".weight-input"
+        );
 
 
-    weightInputs.forEach(input => {
+    weightInputs.forEach(
+        input => {
 
-        input.addEventListener("input", () => {
+            input.addEventListener(
+                "input",
+                () => {
 
-            const index =
-                Number(input.dataset.index);
-
-
-            if (!savedData[index]) {
-
-                savedData[index] = {};
-
-            }
+                    const index =
+                        Number(
+                            input.dataset.index
+                        );
 
 
-            savedData[index].weight =
-                input.value;
+                    if (!latestData[index]) {
+
+                        latestData[index] = {};
+
+                    }
 
 
-            saveData();
-
-        });
-
-    });
+                    latestData[index].weight =
+                        input.value;
 
 
+                    saveLatestData();
 
-    /* -----------------------------
+
+                    updateExerciseVisualState(
+                        index
+                    );
+
+
+                    updateProgress();
+
+                }
+            );
+
+        }
+    );
+
+
+    /* =============================================
        NOTE
-    ------------------------------ */
+    ============================================== */
 
     const notesInputs =
-        document.querySelectorAll(".notes-input");
+        document.querySelectorAll(
+            ".notes-input"
+        );
 
 
-    notesInputs.forEach(input => {
+    notesInputs.forEach(
+        input => {
 
-        input.addEventListener("input", () => {
+            input.addEventListener(
+                "input",
+                () => {
 
-            const index =
-                Number(input.dataset.index);
-
-
-            if (!savedData[index]) {
-
-                savedData[index] = {};
-
-            }
+                    const index =
+                        Number(
+                            input.dataset.index
+                        );
 
 
-            savedData[index].notes =
-                input.value;
+                    if (!latestData[index]) {
+
+                        latestData[index] = {};
+
+                    }
 
 
-            saveData();
-
-        });
-
-    });
-
-}
+                    latestData[index].notes =
+                        input.value;
 
 
+                    saveLatestData();
 
-/* =========================================================
-   SALVA DATI
-   ========================================================= */
+                }
+            );
 
-function saveData() {
-
-    localStorage.setItem(
-        storageKey,
-        JSON.stringify(savedData)
+        }
     );
 
 }
 
 
+/* =========================================================
+   AGGIORNA ASPETTO ESERCIZIO
+   ========================================================= */
+
+function updateExerciseVisualState(index) {
+
+    const card =
+        document.querySelector(
+            `.exercise-card[data-index="${index}"]`
+        );
+
+
+    if (!card) {
+
+        return;
+
+    }
+
+
+    const input =
+        card.querySelector(
+            ".weight-input"
+        );
+
+
+    if (!input) {
+
+        return;
+
+    }
+
+
+    const hasWeight =
+        input.value !== "";
+
+
+    if (hasWeight) {
+
+        card.classList.add(
+            "has-weight"
+        );
+
+    } else {
+
+        card.classList.remove(
+            "has-weight"
+        );
+
+    }
+
+
+    const status =
+        card.querySelector(
+            ".exercise-status"
+        );
+
+
+    const lastWeight =
+        card.querySelector(
+            ".last-weight"
+        );
+
+
+    if (status) {
+
+        status.innerHTML =
+            hasWeight
+
+                ? `
+                    <span class="status-recorded">
+
+                        <i class="fa-solid fa-check"></i>
+
+                        Carico registrato
+
+                    </span>
+                  `
+
+                : `
+                    <span class="status-empty">
+
+                        <i class="fa-solid fa-circle"></i>
+
+                        Inserisci il carico
+
+                    </span>
+                  `;
+
+    }
+
+
+    if (lastWeight) {
+
+        lastWeight.innerHTML =
+            hasWeight
+
+                ? `
+                    Ultimo carico:
+                    <strong>
+                        ${escapeHTML(input.value)} kg
+                    </strong>
+                  `
+
+                : `
+                    Nessun carico registrato
+                  `;
+
+    }
+
+}
+
+
+/* =========================================================
+   SALVA ULTIMI DATI
+   ========================================================= */
+
+function saveLatestData() {
+
+    try {
+
+        localStorage.setItem(
+
+            latestStorageKey,
+
+            JSON.stringify(latestData)
+
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Impossibile salvare i dati:",
+            error
+        );
+
+    }
+
+}
+
 
 /* =========================================================
    AGGIORNA PROGRESSO
+   =========================================================
+
+   Il progresso non indica più "esercizi completati".
+
+   Indica:
+
+   esercizi con un carico registrato
+   /
+   esercizi totali
+
    ========================================================= */
 
 function updateProgress() {
@@ -625,36 +954,52 @@ function updateProgress() {
         workout.exercises.length;
 
 
-    let completed =
+    let recorded =
         0;
 
 
-    workout.exercises.forEach((exercise, index) => {
+    workout.exercises.forEach(
+        (exercise, index) => {
 
-        if (
-            savedData[index] &&
-            savedData[index].completed
-        ) {
+            if (
+                latestData[index] &&
+                latestData[index].weight !== undefined &&
+                latestData[index].weight !== null &&
+                latestData[index].weight !== ""
+            ) {
 
-            completed++;
+                recorded++;
+
+            }
 
         }
-
-    });
+    );
 
 
     const percentage =
-        Math.round(
-            (completed / total) * 100
-        );
+        total > 0
+
+            ? Math.round(
+                (recorded / total) * 100
+            )
+
+            : 0;
 
 
-    progressPercentage.textContent =
-        `${percentage}%`;
+    if (progressPercentage) {
+
+        progressPercentage.textContent =
+            `${percentage}%`;
+
+    }
 
 
-    progressText.textContent =
-        `${completed} / ${total} esercizi`;
+    if (progressText) {
+
+        progressText.textContent =
+            `${recorded} / ${total} carichi registrati`;
+
+    }
 
 
     if (progressBar) {
@@ -667,107 +1012,520 @@ function updateProgress() {
 }
 
 
-
 /* =========================================================
-   COMPLETA ALLENAMENTO
+   CREA SNAPSHOT DELL'ALLENAMENTO
+   =========================================================
+
+   Quando premi "Salva allenamento", non salviamo
+   solamente un riferimento alla scheda.
+
+   Salviamo una fotografia completa dei carichi
+   utilizzati in quella sessione.
+
    ========================================================= */
 
-finishWorkout.addEventListener(
-    "click",
-    () => {
+function createWorkoutSnapshot() {
 
-        const total =
-            workout.exercises.length;
+    return workout.exercises.map(
+        (exercise, index) => {
 
-
-        let completed =
-            0;
+            const data =
+                latestData[index] || {};
 
 
-        workout.exercises.forEach(
-            (exercise, index) => {
+            return {
 
-                if (
-                    savedData[index] &&
-                    savedData[index].completed
-                ) {
+                exerciseIndex:
+                    index,
 
-                    completed++;
+                name:
+                    exercise.name,
 
-                }
+                muscle:
+                    exercise.muscle,
 
-            }
+                sets:
+                    exercise.sets,
+
+                reps:
+                    exercise.reps,
+
+                rest:
+                    exercise.rest,
+
+                weight:
+                    data.weight || "",
+
+                notes:
+                    data.notes || ""
+
+            };
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   SALVA NELLO STORICO
+   ========================================================= */
+
+function saveWorkoutToHistory() {
+
+    const snapshot =
+        createWorkoutSnapshot();
+
+
+    const recordedExercises =
+        snapshot.filter(
+            exercise =>
+                exercise.weight !== ""
         );
 
 
-        if (completed < total) {
+    const historyEntry = {
 
-            const remaining =
-                total - completed;
+        id:
+            Date.now(),
+
+        workout:
+            workoutId,
+
+        name:
+            workout.name,
+
+        date:
+            new Date().toISOString(),
+
+        exercises:
+            snapshot,
+
+        recordedExercises:
+            recordedExercises.length,
+
+        totalExercises:
+            workout.exercises.length
+
+    };
 
 
-            const confirmFinish =
-                confirm(
-                    `Hai ancora ${remaining} esercizi da completare.\n\nVuoi comunque terminare l'allenamento?`
-                );
+    workoutHistory.push(
+        historyEntry
+    );
 
 
-            if (!confirmFinish) {
+    try {
 
-                return;
+        localStorage.setItem(
+
+            historyStorageKey,
+
+            JSON.stringify(
+                workoutHistory
+            )
+
+        );
+
+    } catch (error) {
+
+        console.error(
+            "Errore nel salvataggio dello storico:",
+            error
+        );
+
+        return false;
+
+    }
+
+
+    return true;
+
+}
+
+
+/* =========================================================
+   SALVA ALLENAMENTO
+   ========================================================= */
+
+function finishCurrentWorkout() {
+
+    const total =
+        workout.exercises.length;
+
+
+    let recorded =
+        0;
+
+
+    workout.exercises.forEach(
+        (exercise, index) => {
+
+            if (
+                latestData[index] &&
+                latestData[index].weight !== undefined &&
+                latestData[index].weight !== null &&
+                latestData[index].weight !== ""
+            ) {
+
+                recorded++;
 
             }
 
         }
+    );
 
 
-        /* Salva la data */
+    /* =============================================
+       CONTROLLO DATI
+    ============================================== */
 
-        const workoutHistory =
-            JSON.parse(
-                localStorage.getItem(
-                    "gymtrack_history"
-                )
-            ) || [];
-
-
-        workoutHistory.push({
-
-            workout:
-                workoutId,
-
-            name:
-                workout.name,
-
-            date:
-                new Date().toISOString(),
-
-            completedExercises:
-                completed,
-
-            totalExercises:
-                total
-
-        });
-
-
-        localStorage.setItem(
-            "gymtrack_history",
-            JSON.stringify(workoutHistory)
-        );
-
+    if (recorded === 0) {
 
         alert(
-            "Allenamento salvato! 💪"
+            "Inserisci almeno un carico prima di salvare l'allenamento."
+        );
+
+        return;
+
+    }
+
+
+    /* =============================================
+       CONFERMA SE MANCANO ALCUNI CARICHI
+    ============================================== */
+
+    if (recorded < total) {
+
+        const remaining =
+            total - recorded;
+
+
+        const confirmSave =
+            confirm(
+
+                `Hai registrato il carico di ${recorded} esercizi su ${total}.\n\n` +
+
+                `Mancano ${remaining} esercizi.\n\n` +
+
+                `Vuoi comunque salvare l'allenamento?`
+
+            );
+
+
+        if (!confirmSave) {
+
+            return;
+
+        }
+
+    }
+
+
+    /* =============================================
+       SALVATAGGIO
+    ============================================== */
+
+    const saved =
+        saveWorkoutToHistory();
+
+
+    if (!saved) {
+
+        alert(
+            "Si è verificato un errore durante il salvataggio."
+        );
+
+        return;
+
+    }
+
+
+    /* =============================================
+       CONFERMA
+    ============================================== */
+
+    alert(
+        "Allenamento salvato! 💪\n\n" +
+        `${recorded} carichi registrati su ${total}.`
+    );
+
+
+    /* =============================================
+       RITORNO ALLA PAGINA ALLENAMENTI
+    ============================================== */
+
+    window.location.href =
+        "allenamenti.html";
+
+}
+
+
+/* =========================================================
+   EVENTO SALVATAGGIO ALLENAMENTO
+   ========================================================= */
+
+if (finishWorkout) {
+
+    finishWorkout.addEventListener(
+        "click",
+        finishCurrentWorkout
+    );
+
+}
+
+
+/* =========================================================
+   RECUPERA ULTIMO CARICO DI UN ESERCIZIO
+   =========================================================
+
+   Funzione utile anche per altre pagine
+   dell'applicazione.
+
+   Esempio:
+
+   getLastWeight("A", 0)
+
+   restituisce l'ultimo peso registrato
+   per il Back Squat della scheda A.
+
+   ========================================================= */
+
+function getLastWeight(
+    workoutId,
+    exerciseIndex
+) {
+
+    const key =
+        `gymtrack_latest_${workoutId}`;
+
+
+    let data = {};
+
+
+    try {
+
+        data =
+            JSON.parse(
+                localStorage.getItem(key)
+            ) || {};
+
+    } catch (error) {
+
+        console.error(error);
+
+    }
+
+
+    if (
+        !data[exerciseIndex] ||
+        data[exerciseIndex].weight === undefined
+    ) {
+
+        return null;
+
+    }
+
+
+    return data[exerciseIndex].weight;
+
+}
+
+
+/* =========================================================
+   STORICO DI UN ESERCIZIO
+   =========================================================
+
+   Restituisce tutti i carichi precedentemente
+   utilizzati per un determinato esercizio.
+
+   Esempio:
+
+   getExerciseHistory("A", 0)
+
+   ========================================================= */
+
+function getExerciseHistory(
+    selectedWorkoutId,
+    exerciseIndex
+) {
+
+    const history =
+        getWorkoutHistory();
+
+
+    return history
+
+        .filter(
+            entry =>
+                entry.workout ===
+                selectedWorkoutId
+        )
+
+        .map(
+            entry => {
+
+                if (
+                    !entry.exercises ||
+                    !entry.exercises[exerciseIndex]
+                ) {
+
+                    return null;
+
+                }
+
+
+                const exercise =
+                    entry.exercises[exerciseIndex];
+
+
+                return {
+
+                    date:
+                        entry.date,
+
+                    weight:
+                        exercise.weight,
+
+                    notes:
+                        exercise.notes
+
+                };
+
+            }
+        )
+
+        .filter(
+            item =>
+                item &&
+                item.weight !== ""
+        );
+
+}
+
+
+/* =========================================================
+   RECUPERA TUTTO LO STORICO
+   ========================================================= */
+
+function getWorkoutHistory() {
+
+    try {
+
+        return JSON.parse(
+
+            localStorage.getItem(
+                historyStorageKey
+            )
+
+        ) || [];
+
+    } catch (error) {
+
+        console.error(
+            "Errore lettura storico:",
+            error
+        );
+
+        return [];
+
+    }
+
+}
+
+
+/* =========================================================
+   FORMATTA DATA
+   ========================================================= */
+
+function formatDate(dateString) {
+
+    const date =
+        new Date(dateString);
+
+
+    if (isNaN(date.getTime())) {
+
+        return "";
+
+    }
+
+
+    return date.toLocaleDateString(
+        "it-IT",
+        {
+
+            day: "2-digit",
+
+            month: "2-digit",
+
+            year: "numeric"
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   OTTIENI ULTIMO ALLENAMENTO
+   ========================================================= */
+
+function getLastWorkout() {
+
+    const history =
+        getWorkoutHistory();
+
+
+    const workoutsForCurrentId =
+        history.filter(
+            entry =>
+                entry.workout === workoutId
         );
 
 
-        window.location.href =
-            "allenamenti.html";
+    if (
+        workoutsForCurrentId.length === 0
+    ) {
+
+        return null;
 
     }
-);
 
+
+    return workoutsForCurrentId[
+        workoutsForCurrentId.length - 1
+    ];
+
+}
+
+
+/* =========================================================
+   DEBUG / CONSOLE
+   =========================================================
+
+   Queste funzioni possono essere utilizzate dalla
+   console del browser durante lo sviluppo.
+
+   Esempio:
+
+   getExerciseHistory("A", 0)
+
+   ========================================================= */
+
+window.GymTrack = {
+
+    getLastWeight,
+
+    getExerciseHistory,
+
+    getWorkoutHistory,
+
+    getLastWorkout,
+
+    formatDate
+
+};
 
 
 /* =========================================================
