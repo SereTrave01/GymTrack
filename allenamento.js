@@ -18,59 +18,59 @@ const workouts = {
         exercises: [
 
             {
-                name: "Esercizio 1",
+                name: "Back Squat",
                 muscle: "Gambe",
-                sets: 4,
-                reps: "8-10",
+                sets: 5,
+                reps: "5",
                 rest: "120 sec"
             },
 
             {
-                name: "Esercizio 2",
-                muscle: "Glutei",
-                sets: 3,
-                reps: "10-12",
-                rest: "90 sec"
-            },
-
-            {
-                name: "Esercizio 3",
-                muscle: "Schiena",
-                sets: 3,
-                reps: "8-10",
-                rest: "90 sec"
-            },
-
-            {
-                name: "Esercizio 4",
+                name: "Lento Avanti con Manubri su Panca 70°",
                 muscle: "Spalle",
                 sets: 3,
-                reps: "10-12",
+                reps: "12 - 10 - 8",
                 rest: "90 sec"
             },
 
             {
-                name: "Esercizio 5",
+                name: "Affondi Bulgari con Manubrio",
                 muscle: "Gambe",
                 sets: 3,
-                reps: "10-12",
+                reps: "8 per gamba",
+                rest: "105 sec"
+            },
+
+            {
+                name: "Chest Press",
+                muscle: "Petto",
+                sets: 3,
+                reps: "10",
                 rest: "90 sec"
             },
 
             {
-                name: "Esercizio 6",
-                muscle: "Schiena",
+                name: "Abductor Machine",
+                muscle: "Glutei",
                 sets: 3,
-                reps: "10-12",
+                reps: "20 - 15 - 12",
+                rest: "105 sec"
+            },
+
+            {
+                name: "Distensioni Sopra la Testa con Manubrio",
+                muscle: "Tricipiti",
+                sets: 3,
+                reps: "8 per braccio",
                 rest: "90 sec"
             },
 
             {
-                name: "Esercizio 7",
-                muscle: "Core",
+                name: "Calf su Step",
+                muscle: "Polpacci",
                 sets: 3,
-                reps: "12-15",
-                rest: "60 sec"
+                reps: "MAX",
+                rest: "105 sec"
             }
 
         ]
@@ -78,134 +78,118 @@ const workouts = {
 
 
     B: {
-        name: "Scheda B",
-        description: "Secondo allenamento della settimana.",
+        name: "Dorso + Bicipiti",
+        description: "Riscaldamento: 10 minuti di tapis roulant, circonduzioni e mobilità. Conclusione: 5 minuti di tapis roulant con pendenza 12 e velocità 3.5.",
         duration: "60 min",
 
         exercises: [
 
             {
-                name: "Esercizio 1",
-                muscle: "Gambe",
-                sets: 4,
-                reps: "8-10",
-                rest: "120 sec"
-            },
-
-            {
-                name: "Esercizio 2",
-                muscle: "Glutei",
-                sets: 3,
-                reps: "10-12",
-                rest: "90 sec"
-            },
-
-            {
-                name: "Esercizio 3",
-                muscle: "Petto",
-                sets: 3,
-                reps: "8-10",
-                rest: "90 sec"
-            },
-
-            {
-                name: "Esercizio 4",
-                muscle: "Spalle",
-                sets: 3,
-                reps: "10-12",
-                rest: "90 sec"
-            },
-
-            {
-                name: "Esercizio 5",
+                name: "Pull Down Braccia Semi Tese con Corda",
                 muscle: "Schiena",
                 sets: 3,
-                reps: "10-12",
+                reps: "12",
                 rest: "90 sec"
             },
 
             {
-                name: "Esercizio 6",
+                name: "Rematore con Manubrio",
+                muscle: "Schiena",
+                sets: 3,
+                reps: "8 per braccio",
+                rest: "90 sec"
+            },
+
+            {
+                name: "Trazioni EasyPower Presa Neutra",
+                muscle: "Schiena",
+                sets: 3,
+                reps: "MAX, carico per 8-10 ripetizioni",
+                rest: "90 sec"
+            },
+
+            {
+                name: "Hyperextension",
+                muscle: "Lombari",
+                sets: 3,
+                reps: "12",
+                rest: "90 sec"
+            },
+
+            {
+                name: "Curl Alternati con Manubri su Panca 60°",
                 muscle: "Bicipiti",
                 sets: 3,
-                reps: "10-12",
+                reps: "8 per braccio",
                 rest: "60 sec"
             },
 
             {
-                name: "Esercizio 7",
-                muscle: "Tricipiti",
+                name: "Crunch alla Poliercolina",
+                muscle: "Addominali",
                 sets: 3,
-                reps: "10-12",
-                rest: "60 sec"
-            }
+                reps: "MAX",
+                rest: "45 sec"
+            },
 
         ]
     },
 
 
     C: {
-        name: "Scheda C",
-        description: "Terzo allenamento della settimana.",
+        name: "Gambe",
+        description: "Riscaldamento: 10 minuti di cyclette, circonduzioni e mobilità. Tra Pendulum Squat e Mezzi Stacchi: 3 minuti di tapis roulant con pendenza 12 e velocità 3.5. Conclusione: 5 minuti di cyclette orizzontale e 3-5 minuti di squadretta.",
         duration: "60 min",
 
         exercises: [
 
             {
-                name: "Esercizio 1",
-                muscle: "Gambe",
-                sets: 4,
-                reps: "8-10",
-                rest: "120 sec"
+                name: "Calf Raise su Pressa Orizzontale",
+                muscle: "Polpacci",
+                sets: 3,
+                reps: "12",
+                rest: "105 sec"
             },
 
             {
-                name: "Esercizio 2",
+                name: "Step Up Monopodalico",
+                muscle: "Gambe",
+                sets: 3,
+                reps: "8 per gamba",
+                rest: "105 sec"
+            },
+
+            {
+                name: "Pendulum Squat",
+                muscle: "Gambe",
+                sets: 3,
+                reps: "8, discesa 3 sec + isometria 2 sec",
+                rest: "105 sec"
+            },
+
+            {
+                name: "Mezzi Stacchi con Bilanciere Dritto",
+                muscle: "Femorali",
+                sets: 3,
+                reps: "8",
+                rest: "105 sec"
+            },
+
+            {
+                name: "Leg Curl Prono",
+                muscle: "Femorali",
+                sets: 3,
+                reps: "10",
+                rest: "105 sec"
+            },
+
+            {
+                name: "Hyperextension in Cifosi con Punte Extraruotate",
                 muscle: "Glutei",
                 sets: 3,
-                reps: "10-12",
-                rest: "90 sec"
+                reps: "10-15",
+                rest: "105 sec"
             },
-
-            {
-                name: "Esercizio 3",
-                muscle: "Schiena",
-                sets: 3,
-                reps: "8-10",
-                rest: "90 sec"
-            },
-
-            {
-                name: "Esercizio 4",
-                muscle: "Petto",
-                sets: 3,
-                reps: "8-10",
-                rest: "90 sec"
-            },
-
-            {
-                name: "Esercizio 5",
-                muscle: "Spalle",
-                sets: 3,
-                reps: "10-12",
-                rest: "90 sec"
-            },
-
-            {
-                name: "Esercizio 6",
-                muscle: "Bicipiti",
-                sets: 3,
-                reps: "10-12",
-                rest: "60 sec"
-            },
-
-            {
-                name: "Esercizio 7",
-                muscle: "Core",
-                sets: 3,
-                reps: "12-15",
-                rest: "60 sec"
-            }
 
         ]
     }
