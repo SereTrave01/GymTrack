@@ -654,13 +654,6 @@ input {
 }
 
 
-.exercise-card.completed {
-    border-color: #ddd6fe;
-
-    background: #fcfbff;
-}
-
-
 /* TOP */
 
 .exercise-top {
@@ -724,45 +717,6 @@ input {
     color: #27272a;
 }
 
-
-/* COMPLETE */
-
-.complete-button {
-    width: 34px;
-    height: 34px;
-
-    border-radius: 10px;
-
-    border: 1px solid #e4e4e7;
-
-    background: white;
-
-    color: #d4d4d8;
-
-    cursor: pointer;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    transition: 0.2s ease;
-}
-
-
-.complete-button:hover {
-    color: #7c3aed;
-
-    border-color: #c4b5fd;
-}
-
-
-.exercise-card.completed .complete-button {
-    background: #7c3aed;
-
-    color: white;
-
-    border-color: #7c3aed;
-}
 
 
 /* =========================================================
@@ -899,6 +853,92 @@ input {
     font-weight: 600;
 }
 
+/* =========================================================
+   ULTIMO CARICO
+   ========================================================= */
+
+.last-weight {
+    display: block;
+
+    margin-top: 7px;
+
+    color: #a1a1aa;
+
+    font-size: 9px;
+}
+
+
+.last-weight strong {
+    color: #7c3aed;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   STATO CARICO
+   ========================================================= */
+
+.exercise-status {
+    margin-top: 13px;
+
+    min-height: 17px;
+}
+
+
+.status-recorded,
+.status-empty {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    font-size: 9px;
+
+    font-weight: 600;
+}
+
+
+.status-recorded {
+    color: #7c3aed;
+}
+
+
+.status-recorded i {
+    font-size: 8px;
+}
+
+
+.status-empty {
+    color: #a1a1aa;
+}
+
+
+.status-empty i {
+    font-size: 6px;
+
+    color: #d4d4d8;
+}
+
+
+/* =========================================================
+   ESERCIZIO CON CARICO REGISTRATO
+   ========================================================= */
+
+.exercise-card.has-weight {
+    border-color: #ddd6fe;
+
+    background: #fcfbff;
+}
+
+
+.exercise-card.has-weight:hover {
+    border-color: #c4b5fd;
+
+    box-shadow:
+        0 6px 20px rgba(124, 58, 237, 0.07);
+}
 
 /* =========================================================
    NOTE
@@ -1214,12 +1254,6 @@ input {
 
     .exercise-muscle {
         font-size: 7px;
-    }
-
-
-    .complete-button {
-        width: 33px;
-        height: 33px;
     }
 
 
