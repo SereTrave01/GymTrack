@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>GymTrack | Peso corporeo</title>
+
+
+    <!-- FONT -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- ICONS -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+
+    <!-- CSS -->
+
+    <link
+        rel="stylesheet"
+        href="peso.css"
+    >
+
+</head>
+
+
+<body>
+
+<div class="app">
+
+
+    <!-- =========================
+         SIDEBAR
+    ========================== -->
+
+    <aside class="sidebar">
+
+
+        <div class="logo">
+
+            <div class="logo-icon">
+
+                <i class="fa-solid fa-dumbbell"></i>
+
+            </div>
+
+            <span>
+                GYM<span>TRACK</span>
+            </span>
+
+        </div>
+
+
+        <nav class="navigation">
+
+            <p class="nav-title">
+                MENU
+            </p>
+
+
+            <a href="index.html">
+
+                <i class="fa-solid fa-house"></i>
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+
+            <a href="allenamenti.html">
+
+                <i class="fa-solid fa-dumbbell"></i>
+
+                <span>
+                    Allenamenti
+                </span>
+
+            </a>
+
+
+            <a href="#">
+
+                <i class="fa-solid fa-chart-line"></i>
+
+                <span>
+                    Progressi
+                </span>
+
+            </a>
+
+
+            <a
+                href="peso.html"
+                class="active"
+            >
+
+                <i class="fa-solid fa-weight-scale"></i>
+
+                <span>
+                    Peso corporeo
+                </span>
+
+            </a>
+
+
+            <p class="nav-title second">
+                ALTRO
+            </p>
+
+
+            <a href="#">
+
+                <i class="fa-regular fa-calendar"></i>
+
+                <span>
+                    Calendario
+                </span>
+
+            </a>
+
+
+            <a href="#">
+
+                <i class="fa-solid fa-bullseye"></i>
+
+                <span>
+                    Obiettivi
+                </span>
+
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-profile">
+
+            <div class="avatar">
+                S
+            </div>
+
+
+            <div class="profile-info">
+
+                <strong>
+                    Serena
+                </strong>
+
+                <span>
+                    Il mio profilo
+                </span>
+
+            </div>
+
+
+            <i class="fa-solid fa-ellipsis"></i>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =========================
+         MAIN
+    ========================== -->
+
+    <main class="main">
+
+
+        <!-- HEADER -->
+
+        <header class="top-header">
+
+            <div>
+
+                <span class="small-label">
+                    TRACKING
+                </span>
+
+                <h1>
+                    Peso corporeo
+                </h1>
+
+                <p>
+                    Tieni traccia del tuo peso nel tempo.
+                </p>
+
+            </div>
+
+
+            <div class="header-actions">
+
+                <button
+                    class="icon-button"
+                    aria-label="Notifiche"
+                >
+
+                    <i class="fa-regular fa-bell"></i>
+
+                </button>
+
+
+                <button
+                    class="icon-button"
+                    aria-label="Modalità scura"
+                >
+
+                    <i class="fa-regular fa-moon"></i>
+
+                </button>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =========================
+             TOP CARDS
+        ========================== -->
+
+        <section class="weight-overview">
+
+
+            <!-- PESO ATTUALE -->
+
+            <div class="weight-card main-weight-card">
+
+                <div class="weight-card-header">
+
+                    <span>
+                        PESO ATTUALE
+                    </span>
+
+                    <div class="weight-icon">
+
+                        <i class="fa-solid fa-weight-scale"></i>
+
+                    </div>
+
+                </div>
+
+
+                <div class="current-weight">
+
+                    <strong id="currentWeight">
+                        —
+                    </strong>
+
+                    <span>
+                        kg
+                    </span>
+
+                </div>
+
+
+                <p id="weightDate">
+                    Nessuna registrazione
+                </p>
+
+            </div>
+
+
+
+            <!-- VARIAZIONE -->
+
+            <div class="weight-card">
+
+                <div class="weight-card-header">
+
+                    <span>
+                        VARIAZIONE
+                    </span>
+
+                    <div class="weight-icon secondary">
+
+                        <i class="fa-solid fa-arrow-trend-up"></i>
+
+                    </div>
+
+                </div>
+
+
+                <div class="variation">
+
+                    <strong id="weightDifference">
+                        —
+                    </strong>
+
+                    <span>
+                        kg
+                    </span>
+
+                </div>
+
+
+                <p>
+                    rispetto alla precedente
+                </p>
+
+            </div>
+
+
+
+            <!-- REGISTRAZIONI -->
+
+            <div class="weight-card">
+
+                <div class="weight-card-header">
+
+                    <span>
+                        REGISTRAZIONI
+                    </span>
+
+                    <div class="weight-icon">
+
+                        <i class="fa-solid fa-chart-line"></i>
+
+                    </div>
+
+                </div>
+
+
+                <div class="variation">
+
+                    <strong id="totalEntries">
+                        0
+                    </strong>
+
+                </div>
+
+
+                <p>
+                    pesate registrate
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             INSERIMENTO PESO
+        ========================== -->
+
+        <section class="content-grid">
+
+
+            <div class="card add-weight-card">
+
+
+                <div class="card-heading">
+
+                    <div>
+
+                        <span class="card-label">
+                            NUOVA REGISTRAZIONE
+                        </span>
+
+                        <h2>
+                            Inserisci il peso
+                        </h2>
+
+                    </div>
+
+
+                    <div class="heading-icon">
+
+                        <i class="fa-solid fa-plus"></i>
+
+                    </div>
+
+                </div>
+
+
+
+                <form id="weightForm">
+
+
+                    <div class="input-group">
+
+                        <label for="weight">
+                            Peso
+                        </label>
+
+
+                        <div class="weight-input">
+
+                            <input
+                                type="number"
+                                id="weight"
+                                name="weight"
+                                placeholder="48.0"
+                                step="0.1"
+                                min="20"
+                                max="300"
+                                required
+                            >
+
+                            <span>
+                                kg
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="input-group">
+
+                        <label for="weightDateInput">
+                            Data
+                        </label>
+
+
+                        <input
+                            type="date"
+                            id="weightDateInput"
+                            required
+                        >
+
+                    </div>
+
+
+
+                    <button
+                        type="submit"
+                        class="save-button"
+                    >
+
+                        <i class="fa-solid fa-check"></i>
+
+                        Salva peso
+
+                    </button>
+
+                </form>
+
+            </div>
+
+
+
+            <!-- =========================
+                 INFO
+            ========================== -->
+
+            <div class="card info-card">
+
+                <div class="info-icon">
+
+                    <i class="fa-solid fa-lightbulb"></i>
+
+                </div>
+
+
+                <h3>
+                    Consiglio
+                </h3>
+
+
+                <p>
+                    Per avere dati più confrontabili,
+                    cerca di pesarti nelle stesse
+                    condizioni ogni volta.
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             STORICO
+        ========================== -->
+
+        <section class="history-section">
+
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="card-label">
+                        STORICO
+                    </span>
+
+                    <h2>
+                        Le tue registrazioni
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="history-card"
+                id="historyList"
+            >
+
+                <div class="empty-history">
+
+                    <i class="fa-solid fa-scale-balanced"></i>
+
+                    <h3>
+                        Nessun peso registrato
+                    </h3>
+
+                    <p>
+                        Inserisci il tuo primo peso
+                        per iniziare a monitorare
+                        i progressi.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =========================
+         MOBILE NAV
+    ========================== -->
+
+    <nav class="mobile-nav">
+
+
+        <a
+            href="index.html"
+            class="mobile-nav-item"
+        >
+
+            <i class="fa-solid fa-house"></i>
+
+            <span>
+                Home
+            </span>
+
+        </a>
+
+
+        <a
+            href="allenamenti.html"
+            class="mobile-nav-item"
+        >
+
+            <i class="fa-solid fa-dumbbell"></i>
+
+            <span>
+                Allenamenti
+            </span>
+
+        </a>
+
+
+        <a
+            href="#"
+            class="mobile-nav-item"
+        >
+
+            <i class="fa-solid fa-chart-line"></i>
+
+            <span>
+                Progressi
+            </span>
+
+        </a>
+
+
+        <a
+            href="peso.html"
+            class="mobile-nav-item active"
+        >
+
+            <i class="fa-solid fa-weight-scale"></i>
+
+            <span>
+                Peso
+            </span>
+
+        </a>
+
+
+    </nav>
+
+</div>
+
+
+
+<script src="peso.js"></script>
+
+</body>
+
+</html>
